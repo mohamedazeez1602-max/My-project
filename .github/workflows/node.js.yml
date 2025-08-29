@@ -1,16 +1,26 @@
-site:
-  title: "SOP Networking Library"
-  description: "Browse Standard Operating Procedures for your team"
-  year: 2025
-  organization: "SOP Network"
+name: Node.js CI
 
-sops:
-  - name: "Monitoring Guide"
-    file: "sops/monitoring-guide.pdf"
-    format: "pdf"
-    download: true
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
-  - name: "Ticket Triaging Process"
-    file: "sops/ticket-triaging-process.pdf"
-    format: "pdf"
-    download: true
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: "18"
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Run app.js
+      run: node app.js
